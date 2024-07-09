@@ -22,6 +22,7 @@ import { EnumAssetsTypeField } from "./EnumAssetsTypeField";
 import { EnumAssetsStatus } from "./EnumAssetsStatus";
 import { AssignmentsUpdateManyWithoutAssetsItemsInput } from "./AssignmentsUpdateManyWithoutAssetsItemsInput";
 import { Type } from "class-transformer";
+import { DepartmentsWhereUniqueInput } from "../../departments/base/DepartmentsWhereUniqueInput";
 
 @InputType()
 class AssetsUpdateInput {
@@ -82,6 +83,18 @@ class AssetsUpdateInput {
     nullable: true,
   })
   assignmentsItems?: AssignmentsUpdateManyWithoutAssetsItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DepartmentsWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DepartmentsWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DepartmentsWhereUniqueInput, {
+    nullable: true,
+  })
+  department?: DepartmentsWhereUniqueInput | null;
 }
 
 export { AssetsUpdateInput as AssetsUpdateInput };

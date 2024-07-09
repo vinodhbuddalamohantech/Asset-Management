@@ -22,6 +22,7 @@ import { UpdateAssetsArgs } from "./UpdateAssetsArgs";
 import { DeleteAssetsArgs } from "./DeleteAssetsArgs";
 import { AssignmentsFindManyArgs } from "../../assignments/base/AssignmentsFindManyArgs";
 import { Assignments } from "../../assignments/base/Assignments";
+import { Departments } from "../../departments/base/Departments";
 import { AssetsService } from "../assets.service";
 @graphql.Resolver(() => Assets)
 export class AssetsResolverBase {
@@ -58,7 +59,15 @@ export class AssetsResolverBase {
   async createAssets(@graphql.Args() args: CreateAssetsArgs): Promise<Assets> {
     return await this.service.createAssets({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        department: args.data.department
+          ? {
+              connect: args.data.department,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -69,7 +78,15 @@ export class AssetsResolverBase {
     try {
       return await this.service.updateAssets({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          department: args.data.department
+            ? {
+                connect: args.data.department,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -109,5 +126,20 @@ export class AssetsResolverBase {
     }
 
     return results;
+  }
+
+  @graphql.ResolveField(() => Departments, {
+    nullable: true,
+    name: "department",
+  })
+  async getDepartment(
+    @graphql.Parent() parent: Assets
+  ): Promise<Departments | null> {
+    const result = await this.service.getDepartment(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

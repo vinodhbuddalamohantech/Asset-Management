@@ -1,5 +1,6 @@
 import { JsonValue } from "type-fest";
 import { Assignments } from "../assignments/Assignments";
+import { AuditLogs } from "../auditLogs/AuditLogs";
 
 export type User = {
   id: string;
@@ -13,4 +14,5 @@ export type User = {
   name: string | null;
   role?: "Option1" | null;
   assignmentsItems?: Array<Assignments>;
+  auditLogsItems?: Array<AuditLogs>;
 };

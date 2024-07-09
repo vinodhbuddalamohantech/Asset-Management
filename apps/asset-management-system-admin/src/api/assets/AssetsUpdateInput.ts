@@ -1,4 +1,5 @@
 import { AssignmentsUpdateManyWithoutAssetsItemsInput } from "./AssignmentsUpdateManyWithoutAssetsItemsInput";
+import { DepartmentsWhereUniqueInput } from "../departments/DepartmentsWhereUniqueInput";
 
 export type AssetsUpdateInput = {
   name?: string | null;
@@ -6,4 +7,5 @@ export type AssetsUpdateInput = {
   typeField?: "Option1" | null;
   status?: "Option1" | null;
   assignmentsItems?: AssignmentsUpdateManyWithoutAssetsItemsInput;
+  department?: DepartmentsWhereUniqueInput | null;
 };

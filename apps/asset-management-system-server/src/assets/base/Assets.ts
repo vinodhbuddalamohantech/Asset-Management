@@ -23,6 +23,7 @@ import { Type } from "class-transformer";
 import { EnumAssetsTypeField } from "./EnumAssetsTypeField";
 import { EnumAssetsStatus } from "./EnumAssetsStatus";
 import { Assignments } from "../../assignments/base/Assignments";
+import { Departments } from "../../departments/base/Departments";
 
 @ObjectType()
 class Assets {
@@ -104,6 +105,15 @@ class Assets {
   @Type(() => Assignments)
   @IsOptional()
   assignmentsItems?: Array<Assignments>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Departments,
+  })
+  @ValidateNested()
+  @Type(() => Departments)
+  @IsOptional()
+  department?: Departments | null;
 }
 
 export { Assets as Assets };

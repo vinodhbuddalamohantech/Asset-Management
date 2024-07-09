@@ -10,10 +10,12 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   User as PrismaUser,
   Assignments as PrismaAssignments,
+  AuditLogs as PrismaAuditLogs,
 } from "@prisma/client";
 
 export class UserServiceBase {
@@ -48,5 +50,16 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .assignmentsItems(args);
+  }
+
+  async findAuditLogsItems(
+    parentId: string,
+    args: Prisma.AuditLogsFindManyArgs
+  ): Promise<PrismaAuditLogs[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .auditLogsItems(args);
   }
 }

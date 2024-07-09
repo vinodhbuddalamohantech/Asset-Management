@@ -24,6 +24,7 @@ import { InputJsonValue } from "../../types";
 import { EnumUserRole } from "./EnumUserRole";
 import { AssignmentsCreateNestedManyWithoutUsersInput } from "./AssignmentsCreateNestedManyWithoutUsersInput";
 import { Type } from "class-transformer";
+import { AuditLogsCreateNestedManyWithoutUsersInput } from "./AuditLogsCreateNestedManyWithoutUsersInput";
 
 @InputType()
 class UserCreateInput {
@@ -119,6 +120,18 @@ class UserCreateInput {
     nullable: true,
   })
   assignmentsItems?: AssignmentsCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => AuditLogsCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => AuditLogsCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => AuditLogsCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  auditLogsItems?: AuditLogsCreateNestedManyWithoutUsersInput;
 }
 
 export { UserCreateInput as UserCreateInput };

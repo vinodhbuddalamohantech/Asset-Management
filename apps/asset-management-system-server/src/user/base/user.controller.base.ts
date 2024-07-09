@@ -25,6 +25,9 @@ import { UserUpdateInput } from "./UserUpdateInput";
 import { AssignmentsFindManyArgs } from "../../assignments/base/AssignmentsFindManyArgs";
 import { Assignments } from "../../assignments/base/Assignments";
 import { AssignmentsWhereUniqueInput } from "../../assignments/base/AssignmentsWhereUniqueInput";
+import { AuditLogsFindManyArgs } from "../../auditLogs/base/AuditLogsFindManyArgs";
+import { AuditLogs } from "../../auditLogs/base/AuditLogs";
+import { AuditLogsWhereUniqueInput } from "../../auditLogs/base/AuditLogsWhereUniqueInput";
 
 export class UserControllerBase {
   constructor(protected readonly service: UserService) {}
@@ -243,6 +246,89 @@ export class UserControllerBase {
   ): Promise<void> {
     const data = {
       assignmentsItems: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/:id/auditLogsItems")
+  @ApiNestedQuery(AuditLogsFindManyArgs)
+  async findAuditLogsItems(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<AuditLogs[]> {
+    const query = plainToClass(AuditLogsFindManyArgs, request.query);
+    const results = await this.service.findAuditLogsItems(params.id, {
+      ...query,
+      select: {
+        id: true,
+        createdAt: true,
+        updatedAt: true,
+        details: true,
+        event: true,
+        timestamp: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/auditLogsItems")
+  async connectAuditLogsItems(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: AuditLogsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      auditLogsItems: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/auditLogsItems")
+  async updateAuditLogsItems(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: AuditLogsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      auditLogsItems: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/auditLogsItems")
+  async disconnectAuditLogsItems(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: AuditLogsWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      auditLogsItems: {
         disconnect: body,
       },
     };

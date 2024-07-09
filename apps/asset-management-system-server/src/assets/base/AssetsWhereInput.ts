@@ -18,6 +18,7 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { EnumAssetsTypeField } from "./EnumAssetsTypeField";
 import { EnumAssetsStatus } from "./EnumAssetsStatus";
 import { AssignmentsListRelationFilter } from "../../assignments/base/AssignmentsListRelationFilter";
+import { DepartmentsWhereUniqueInput } from "../../departments/base/DepartmentsWhereUniqueInput";
 
 @InputType()
 class AssetsWhereInput {
@@ -87,6 +88,18 @@ class AssetsWhereInput {
     nullable: true,
   })
   assignmentsItems?: AssignmentsListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DepartmentsWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DepartmentsWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DepartmentsWhereUniqueInput, {
+    nullable: true,
+  })
+  department?: DepartmentsWhereUniqueInput;
 }
 
 export { AssetsWhereInput as AssetsWhereInput };

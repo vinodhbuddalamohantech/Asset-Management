@@ -22,6 +22,8 @@ import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
 import { AssignmentsFindManyArgs } from "../../assignments/base/AssignmentsFindManyArgs";
 import { Assignments } from "../../assignments/base/Assignments";
+import { AuditLogsFindManyArgs } from "../../auditLogs/base/AuditLogsFindManyArgs";
+import { AuditLogs } from "../../auditLogs/base/AuditLogs";
 import { UserService } from "../user.service";
 @graphql.Resolver(() => User)
 export class UserResolverBase {
@@ -95,6 +97,20 @@ export class UserResolverBase {
     @graphql.Args() args: AssignmentsFindManyArgs
   ): Promise<Assignments[]> {
     const results = await this.service.findAssignmentsItems(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [AuditLogs], { name: "auditLogsItems" })
+  async findAuditLogsItems(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: AuditLogsFindManyArgs
+  ): Promise<AuditLogs[]> {
+    const results = await this.service.findAuditLogsItems(parent.id, args);
 
     if (!results) {
       return [];

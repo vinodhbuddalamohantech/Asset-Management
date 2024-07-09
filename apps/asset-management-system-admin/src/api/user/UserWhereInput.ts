@@ -1,6 +1,7 @@
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { AssignmentsListRelationFilter } from "../assignments/AssignmentsListRelationFilter";
+import { AuditLogsListRelationFilter } from "../auditLogs/AuditLogsListRelationFilter";
 
 export type UserWhereInput = {
   id?: StringFilter;
@@ -11,4 +12,5 @@ export type UserWhereInput = {
   name?: StringNullableFilter;
   role?: "Option1";
   assignmentsItems?: AssignmentsListRelationFilter;
+  auditLogsItems?: AuditLogsListRelationFilter;
 };

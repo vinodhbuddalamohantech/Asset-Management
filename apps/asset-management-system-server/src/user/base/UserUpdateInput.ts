@@ -24,6 +24,7 @@ import { InputJsonValue } from "../../types";
 import { EnumUserRole } from "./EnumUserRole";
 import { AssignmentsUpdateManyWithoutUsersInput } from "./AssignmentsUpdateManyWithoutUsersInput";
 import { Type } from "class-transformer";
+import { AuditLogsUpdateManyWithoutUsersInput } from "./AuditLogsUpdateManyWithoutUsersInput";
 
 @InputType()
 class UserUpdateInput {
@@ -128,6 +129,18 @@ class UserUpdateInput {
     nullable: true,
   })
   assignmentsItems?: AssignmentsUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => AuditLogsUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => AuditLogsUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => AuditLogsUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  auditLogsItems?: AuditLogsUpdateManyWithoutUsersInput;
 }
 
 export { UserUpdateInput as UserUpdateInput };

@@ -17,6 +17,7 @@ import { IsOptional, IsEnum, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { EnumUserRole } from "./EnumUserRole";
 import { AssignmentsListRelationFilter } from "../../assignments/base/AssignmentsListRelationFilter";
+import { AuditLogsListRelationFilter } from "../../auditLogs/base/AuditLogsListRelationFilter";
 
 @InputType()
 class UserWhereInput {
@@ -108,6 +109,18 @@ class UserWhereInput {
     nullable: true,
   })
   assignmentsItems?: AssignmentsListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => AuditLogsListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => AuditLogsListRelationFilter)
+  @IsOptional()
+  @Field(() => AuditLogsListRelationFilter, {
+    nullable: true,
+  })
+  auditLogsItems?: AuditLogsListRelationFilter;
 }
 
 export { UserWhereInput as UserWhereInput };

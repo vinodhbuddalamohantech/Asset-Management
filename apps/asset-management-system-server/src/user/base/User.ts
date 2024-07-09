@@ -25,6 +25,7 @@ import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { EnumUserRole } from "./EnumUserRole";
 import { Assignments } from "../../assignments/base/Assignments";
+import { AuditLogs } from "../../auditLogs/base/AuditLogs";
 
 @ObjectType()
 class User {
@@ -133,6 +134,15 @@ class User {
   @Type(() => Assignments)
   @IsOptional()
   assignmentsItems?: Array<Assignments>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [AuditLogs],
+  })
+  @ValidateNested()
+  @Type(() => AuditLogs)
+  @IsOptional()
+  auditLogsItems?: Array<AuditLogs>;
 }
 
 export { User as User };

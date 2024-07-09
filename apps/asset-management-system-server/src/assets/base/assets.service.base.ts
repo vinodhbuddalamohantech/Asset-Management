@@ -10,10 +10,12 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   Assets as PrismaAssets,
   Assignments as PrismaAssignments,
+  Departments as PrismaDepartments,
 } from "@prisma/client";
 
 export class AssetsServiceBase {
@@ -50,5 +52,13 @@ export class AssetsServiceBase {
         where: { id: parentId },
       })
       .assignmentsItems(args);
+  }
+
+  async getDepartment(parentId: string): Promise<PrismaDepartments | null> {
+    return this.prisma.assets
+      .findUnique({
+        where: { id: parentId },
+      })
+      .department();
   }
 }

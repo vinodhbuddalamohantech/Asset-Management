@@ -1,5 +1,6 @@
 import { InputJsonValue } from "../../types";
 import { AssignmentsUpdateManyWithoutUsersInput } from "./AssignmentsUpdateManyWithoutUsersInput";
+import { AuditLogsUpdateManyWithoutUsersInput } from "./AuditLogsUpdateManyWithoutUsersInput";
 
 export type UserUpdateInput = {
   firstName?: string | null;
@@ -11,4 +12,5 @@ export type UserUpdateInput = {
   name?: string | null;
   role?: "Option1" | null;
   assignmentsItems?: AssignmentsUpdateManyWithoutUsersInput;
+  auditLogsItems?: AuditLogsUpdateManyWithoutUsersInput;
 };

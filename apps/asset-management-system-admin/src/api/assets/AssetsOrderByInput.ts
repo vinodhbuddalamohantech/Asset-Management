@@ -8,4 +8,5 @@ export type AssetsOrderByInput = {
   description?: SortOrder;
   typeField?: SortOrder;
   status?: SortOrder;
+  departmentId?: SortOrder;
 };

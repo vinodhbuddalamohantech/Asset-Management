@@ -32,7 +32,15 @@ export class AssetsControllerBase {
   @swagger.ApiCreatedResponse({ type: Assets })
   async createAssets(@common.Body() data: AssetsCreateInput): Promise<Assets> {
     return await this.service.createAssets({
-      data: data,
+      data: {
+        ...data,
+
+        department: data.department
+          ? {
+              connect: data.department,
+            }
+          : undefined,
+      },
       select: {
         id: true,
         createdAt: true,
@@ -41,6 +49,12 @@ export class AssetsControllerBase {
         description: true,
         typeField: true,
         status: true,
+
+        department: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -60,6 +74,12 @@ export class AssetsControllerBase {
         description: true,
         typeField: true,
         status: true,
+
+        department: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -80,6 +100,12 @@ export class AssetsControllerBase {
         description: true,
         typeField: true,
         status: true,
+
+        department: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -100,7 +126,15 @@ export class AssetsControllerBase {
     try {
       return await this.service.updateAssets({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          department: data.department
+            ? {
+                connect: data.department,
+              }
+            : undefined,
+        },
         select: {
           id: true,
           createdAt: true,
@@ -109,6 +143,12 @@ export class AssetsControllerBase {
           description: true,
           typeField: true,
           status: true,
+
+          department: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -138,6 +178,12 @@ export class AssetsControllerBase {
           description: true,
           typeField: true,
           status: true,
+
+          department: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {

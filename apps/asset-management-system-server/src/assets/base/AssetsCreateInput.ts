@@ -22,6 +22,7 @@ import { EnumAssetsTypeField } from "./EnumAssetsTypeField";
 import { EnumAssetsStatus } from "./EnumAssetsStatus";
 import { AssignmentsCreateNestedManyWithoutAssetsItemsInput } from "./AssignmentsCreateNestedManyWithoutAssetsItemsInput";
 import { Type } from "class-transformer";
+import { DepartmentsWhereUniqueInput } from "../../departments/base/DepartmentsWhereUniqueInput";
 
 @InputType()
 class AssetsCreateInput {
@@ -82,6 +83,18 @@ class AssetsCreateInput {
     nullable: true,
   })
   assignmentsItems?: AssignmentsCreateNestedManyWithoutAssetsItemsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DepartmentsWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DepartmentsWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DepartmentsWhereUniqueInput, {
+    nullable: true,
+  })
+  department?: DepartmentsWhereUniqueInput | null;
 }
 
 export { AssetsCreateInput as AssetsCreateInput };

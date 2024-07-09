@@ -1,4 +1,5 @@
 import { Assignments } from "../assignments/Assignments";
+import { Departments } from "../departments/Departments";
 
 export type Assets = {
   id: string;
@@ -9,4 +10,5 @@ export type Assets = {
   typeField?: "Option1" | null;
   status?: "Option1" | null;
   assignmentsItems?: Array<Assignments>;
+  department?: Departments | null;
 };

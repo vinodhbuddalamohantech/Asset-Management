@@ -1,5 +1,6 @@
 import { InputJsonValue } from "../../types";
 import { AssignmentsCreateNestedManyWithoutUsersInput } from "./AssignmentsCreateNestedManyWithoutUsersInput";
+import { AuditLogsCreateNestedManyWithoutUsersInput } from "./AuditLogsCreateNestedManyWithoutUsersInput";
 
 export type UserCreateInput = {
   firstName?: string | null;
@@ -11,4 +12,5 @@ export type UserCreateInput = {
   name?: string | null;
   role?: "Option1" | null;
   assignmentsItems?: AssignmentsCreateNestedManyWithoutUsersInput;
+  auditLogsItems?: AuditLogsCreateNestedManyWithoutUsersInput;
 };
